@@ -1,3 +1,6 @@
+// Ioana A Mititean
+// Exercise 34.1 - Message.ly
+
 /** Common config for message.ly */
 
 // read .env files and make environmental variables

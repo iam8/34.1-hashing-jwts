@@ -1,3 +1,6 @@
+// Ioana A Mititean
+// Exercise 34.1 - Message.ly
+
 /** GET / - get list of users.
  *
  * => {users: [{username, first_name, last_name, phone}, ...]}

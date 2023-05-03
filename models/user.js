@@ -1,3 +1,6 @@
+// Ioana A Mititean
+// Exercise 34.1 - Message.ly
+
 /** User class for message.ly */
 
 

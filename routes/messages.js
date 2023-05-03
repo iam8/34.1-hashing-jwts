@@ -1,3 +1,6 @@
+// Ioana A Mititean
+// Exercise 34.1 - Message.ly
+
 /** GET /:id - get detail of message.
  *
  * => {message: {id,

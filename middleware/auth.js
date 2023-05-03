@@ -1,3 +1,6 @@
+// Ioana A Mititean
+// Exercise 34.1 - Message.ly
+
 /** Middleware for handling req authorization for routes. */
 
 const jwt = require("jsonwebtoken");

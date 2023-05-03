@@ -1,3 +1,6 @@
+// Ioana A Mititean
+// Exercise 34.1 - Message.ly
+
 /** POST /login - login: {username, password} => {token}
  *
  * Make sure to update their last-login!

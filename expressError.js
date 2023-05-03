@@ -1,3 +1,6 @@
+// Ioana A Mititean
+// Exercise 34.1 - Message.ly
+
 /** ExpressError extends the normal JS error so we can easily
  *  add a status when we make an instance of it.
  *
