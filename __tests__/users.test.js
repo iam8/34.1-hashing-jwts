@@ -1,6 +1,6 @@
-const db = require("../db");
-const User = require("../models/user");
-const Message = require("../models/message");
+const { client: db } = require("../db");
+const { User } = require("../models/user");
+const { Message } = require("../models/message");
 
 
 describe("Test User class", function () {
