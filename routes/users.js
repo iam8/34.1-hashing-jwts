@@ -6,6 +6,13 @@
  */
 
 
+const express = require("express");
+const router = express.Router();
+
+const { client: db } = require("../db");
+const { ExpressError } = require("../expressError");
+
+
 /** GET / - get list of users.
  *
  * => {users: [{username, first_name, last_name, phone}, ...]}
@@ -40,3 +47,5 @@
  *                 to_user: {username, first_name, last_name, phone}}, ...]}
  *
  **/
+
+module.exports = { router };

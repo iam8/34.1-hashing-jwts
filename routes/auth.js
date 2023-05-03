@@ -6,6 +6,13 @@
  */
 
 
+const express = require("express");
+const router = express.Router();
+
+const { client: db } = require("../db");
+const { ExpressError } = require("../expressError");
+
+
 /** POST /login - login: {username, password} => {token}
  *
  * Make sure to update their last-login!
@@ -19,3 +26,6 @@
  *
  *  Make sure to update their last-login!
  */
+
+
+module.exports = { router };

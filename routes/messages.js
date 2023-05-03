@@ -6,6 +6,13 @@
  */
 
 
+const express = require("express");
+const router = express.Router();
+
+const { client: db } = require("../db");
+const { ExpressError } = require("../expressError");
+
+
 /** GET /:id - get detail of message.
  *
  * => {message: {id,
@@ -36,3 +43,5 @@
  *
  **/
 
+
+module.exports = { router };
