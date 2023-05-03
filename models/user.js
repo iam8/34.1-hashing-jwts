@@ -54,7 +54,7 @@ class User {
             RETURNING last_login_at`,
             [username]);
 
-        if (qRes.rows.length === 0) {
+        if (!qRes.rows[0]) {
             throw new ExpressError(`No such user: ${username}`, 404);
         }
     }
