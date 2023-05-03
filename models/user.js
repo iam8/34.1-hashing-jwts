@@ -100,11 +100,18 @@ class User {
      *
      * where to_user is
      *   {username, first_name, last_name, phone}
-     *
-     * TODO: qRes.rows is empty if username doesn't exist OR if user with username sent no msgs
-     * TODO: throw error if username doesn't exist
      */
     static async messagesFrom(username) {
+
+        // First check if user with given username exists
+        const userQ = await db.query(`
+            SELECT username FROM users
+            WHERE username = $1`,
+            [username]);
+
+        if (!userQ.rows[0]) {
+            throw new ExpressError(`No such user: ${username}`, 404);
+        }
 
         const qRes = await db.query(`
             SELECT
@@ -144,11 +151,18 @@ class User {
      *
      * where from_user is
      *   {username, first_name, last_name, phone}
-     *
-     * TODO: qRes.rows is empty if username doesn't exist OR if user with username received no msgs
-     * TODO: throw error if username doesn't exist
      */
     static async messagesTo(username) {
+
+        // First check if user with given username exists
+        const userQ = await db.query(`
+            SELECT username FROM users
+            WHERE username = $1`,
+            [username]);
+
+        if (!userQ.rows[0]) {
+            throw new ExpressError(`No such user: ${username}`, 404);
+        }
 
         const qRes = await db.query(`
             SELECT
