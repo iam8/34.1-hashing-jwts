@@ -103,6 +103,23 @@ class User {
      */
     static async messagesFrom(username) {
 
+        const qRes = await db.query(`
+            SELECT
+                m.id,
+                m.to_user,
+                m.body,
+                m.sent_at,
+                m.read_at,
+                t.username,
+                t.first_name,
+                t.last_name,
+                t.phone
+            FROM messages AS m
+                JOIN users AS t
+                    ON m.to_user = t.username
+            WHERE m.from_user = $1`,
+            [username]);
+
     }
 
     /** Return messages to this user.
@@ -113,6 +130,23 @@ class User {
      *   {username, first_name, last_name, phone}
      */
     static async messagesTo(username) {
+
+        const qRes = await db.query(`
+            SELECT
+                m.id,
+                m.from_user,
+                m.body,
+                m.sent_at,
+                m.read_at,
+                f.username,
+                f.first_name,
+                f.last_name,
+                f.phone
+            FROM messages as m
+                JOIN users as f
+                    ON m.from_user = f.username
+            WHERE m.to_user = $1`,
+            [username]);
 
     }
 }
