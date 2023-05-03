@@ -100,26 +100,42 @@ class User {
      *
      * where to_user is
      *   {username, first_name, last_name, phone}
+     *
+     * TODO: qRes.rows is empty if username doesn't exist OR if user with username sent no msgs
+     * TODO: throw error if username doesn't exist
      */
     static async messagesFrom(username) {
 
         const qRes = await db.query(`
             SELECT
                 m.id,
-                m.to_user,
+                m.to_username,
                 m.body,
                 m.sent_at,
                 m.read_at,
-                t.username,
-                t.first_name,
-                t.last_name,
-                t.phone
+                t.first_name AS to_first_name,
+                t.last_name AS to_last_name,
+                t.phone AS to_phone
             FROM messages AS m
                 JOIN users AS t
-                    ON m.to_user = t.username
-            WHERE m.from_user = $1`,
+                    ON m.to_username = t.username
+            WHERE m.from_username = $1`,
             [username]);
 
+        return qRes.rows.map((msg) => {
+            return {
+                id: msg.id,
+                to_user: {
+                    username: msg.to_username,
+                    first_name: msg.to_first_name,
+                    last_name: msg.to_last_name,
+                    phone: msg.to_phone
+                },
+                body: msg.body,
+                sent_at: msg.sent_at,
+                read_at: msg.read_at
+            };
+        })
     }
 
     /** Return messages to this user.
@@ -128,13 +144,16 @@ class User {
      *
      * where from_user is
      *   {username, first_name, last_name, phone}
+     *
+     * TODO: qRes.rows is empty if username doesn't exist OR if user with username received no msgs
+     * TODO: throw error if username doesn't exist
      */
     static async messagesTo(username) {
 
         const qRes = await db.query(`
             SELECT
                 m.id,
-                m.from_user,
+                m.from_username,
                 m.body,
                 m.sent_at,
                 m.read_at,
@@ -144,10 +163,11 @@ class User {
                 f.phone
             FROM messages as m
                 JOIN users as f
-                    ON m.from_user = f.username
-            WHERE m.to_user = $1`,
+                    ON m.from_username = f.username
+            WHERE m.to_username = $1`,
             [username]);
 
+        return qRes.rows;
     }
 }
 
