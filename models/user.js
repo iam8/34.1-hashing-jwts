@@ -45,9 +45,18 @@ class User {
         return authRes;
     }
 
-    /** Update last_login_at for user */
+    /** Update last_login_at for user. */
     static async updateLoginTimestamp(username) {
 
+        const qRes = await db.query(`
+            UPDATE users SET last_login_at = CURRENT_TIMESTAMP
+            WHERE username = $1
+            RETURNING last_login_at`,
+            [username]);
+
+        if (qRes.rows.length === 0) {
+            throw new ExpressError(`No such user: ${username}`, 404);
+        }
     }
 
     /** All: basic info on all users:
