@@ -63,6 +63,11 @@ class User {
      * [{username, first_name, last_name, phone}, ...] */
     static async all() {
 
+        const qRes = await db.query(`
+            SELECT username, first_name, last_name, phone
+            FROM users`);
+
+        return qRes.rows;
     }
 
     /** Get: get user by username.
