@@ -28,7 +28,7 @@ class User {
         const user = result.rows[0];
 
         // Update last_login_at for this user
-        await User.updateLoginTimestamp(user.username);
+        await this.updateLoginTimestamp(user.username);
 
         return user;
     }
