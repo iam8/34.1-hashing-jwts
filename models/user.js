@@ -135,7 +135,7 @@ class User {
                 sent_at: msg.sent_at,
                 read_at: msg.read_at
             };
-        })
+        });
     }
 
     /** Return messages to this user.
@@ -157,17 +157,29 @@ class User {
                 m.body,
                 m.sent_at,
                 m.read_at,
-                f.username,
-                f.first_name,
-                f.last_name,
-                f.phone
+                f.first_name AS from_first_name,
+                f.last_name AS from_last_name,
+                f.phone AS from_phone
             FROM messages as m
                 JOIN users as f
                     ON m.from_username = f.username
             WHERE m.to_username = $1`,
             [username]);
 
-        return qRes.rows;
+        return qRes.rows.map((msg) => {
+            return {
+                id: msg.id,
+                from_user: {
+                    username: msg.from_username,
+                    first_name: msg.from_first_name,
+                    last_name: msg.from_last_name,
+                    phone: msg.from_phone
+                },
+                body: msg.body,
+                sent_at: msg.sent_at,
+                read_at: msg.read_at
+            };
+        });
     }
 }
 
