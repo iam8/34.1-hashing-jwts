@@ -25,7 +25,12 @@ class User {
                 RETURNING username, password, first_name, last_name, phone`,
             [username, hashedPw, first_name, last_name, phone]);
 
-        return result.rows[0];
+        const user = result.rows[0];
+
+        // Update last_login_at for this user
+        await User.updateLoginTimestamp(user.username);
+
+        return user;
     }
 
     /** Authenticate: is this username/password valid? Returns boolean. */
