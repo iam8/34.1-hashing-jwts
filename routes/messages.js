@@ -1,6 +1,11 @@
 // Ioana A Mititean
 // Exercise 34.1 - Message.ly
 
+/**
+ * Routes for messages.
+ */
+
+
 /** GET /:id - get detail of message.
  *
  * => {message: {id,

@@ -1,6 +1,11 @@
 // Ioana A Mititean
 // Exercise 34.1 - Message.ly
 
+/**
+ * Routes for authentication.
+ */
+
+
 /** POST /login - login: {username, password} => {token}
  *
  * Make sure to update their last-login!
