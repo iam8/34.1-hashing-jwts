@@ -9,7 +9,6 @@
 const express = require("express");
 const router = express.Router();
 
-const { client: db } = require("../db");
 const { User } = require("../models/user");
 const { ensureCorrectUser } = require("../middleware/auth");
 

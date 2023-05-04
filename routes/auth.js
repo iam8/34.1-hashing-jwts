@@ -11,7 +11,6 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 const { SECRET_KEY } = require("../config");
-const { client: db } = require("../db");
 const { ExpressError } = require("../expressError");
 const { User } = require("../models/user");
 
