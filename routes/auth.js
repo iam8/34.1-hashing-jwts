@@ -8,16 +8,40 @@
 
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
+const { SECRET_KEY } = require("../config");
 const { client: db } = require("../db");
 const { ExpressError } = require("../expressError");
+const { User } = require("../models/user");
 
 
 /** POST /login - login: {username, password} => {token}
  *
- * Make sure to update their last-login!
+ * Also, update user's last login timestamp.
  *
  **/
+router.post("/login", async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+
+        const loginSuccess = await User.authenticate(username, password);
+        if (loginSuccess) {
+
+            // Update last login
+            await User.updateLoginTimestamp(username);
+
+            // Create and return JWT
+            let token = jwt.sign({ username }, SECRET_KEY);
+            return res.json({ token });
+        }
+
+        throw new ExpressError("Invalid username and/or password", 400);
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
 /** POST /register - register user: registers, logs in, and returns token.
