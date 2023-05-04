@@ -10,14 +10,16 @@ const express = require("express");
 const router = express.Router();
 
 const { User } = require("../models/user");
-const { ensureCorrectUser } = require("../middleware/auth");
+const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
 
 
 /** GET / - Get list of users.
  *
  * => {users: [{username, first_name, last_name, phone}, ...]}
+ *
+ * Only logged-in users can view this route.
  **/
-router.get("/", async (req, res, next) => {
+router.get("/", ensureLoggedIn, async (req, res, next) => {
     try {
         const users = await User.all();
         return res.json({ users });
