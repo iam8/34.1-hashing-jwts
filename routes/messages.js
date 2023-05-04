@@ -16,7 +16,7 @@ const { Message } = require("../models/message");
 const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
 
 
-/** GET /:id - get detail of message.
+/** GET /:id - get detail of a message.
  *
  * => {message: {id,
  *               body,
@@ -25,26 +25,46 @@ const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
  *               from_user: {username, first_name, last_name, phone},
  *               to_user: {username, first_name, last_name, phone}}
  *
- * Make sure that the currently-logged-in users is either the to or from user.
- *
+ * Only the currently-logged-in user can be either the 'to' or 'from' user.
  **/
+router.get("/:id", async (req, res, next) => {
+    try {
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
-/** POST / - post message.
+/** POST / - post a message.
  *
  * {to_username, body} =>
  *   {message: {id, from_username, to_username, body, sent_at}}
  *
+ * Only logged-in users can post messages.
  **/
+router.post("/", ensureLoggedIn, async (req, res, next) => {
+    try {
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
-/** POST/:id/read - mark message as read:
+/** POST/:id/read - mark a message as read.
  *
  *  => {message: {id, read_at}}
  *
- * Make sure that the only the intended recipient can mark as read.
- *
+ * Only the intended recipient can mark as read.
  **/
+router.post("/:id/read", async (req, res, next) => {
+    try {
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
 module.exports = { router };
