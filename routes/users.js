@@ -18,6 +18,14 @@ const { ExpressError } = require("../expressError");
  * => {users: [{username, first_name, last_name, phone}, ...]}
  *
  **/
+router.get("/", async (req, res, next) => {
+    try {
+
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
 /** GET /:username - Get details of a user.
@@ -25,6 +33,14 @@ const { ExpressError } = require("../expressError");
  * => {user: {username, first_name, last_name, phone, join_at, last_login_at}}
  *
  **/
+router.get("/:username", async (req, res, next) => {
+    try {
+
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
 /** GET /:username/to - Get messages to a user.
@@ -36,6 +52,14 @@ const { ExpressError } = require("../expressError");
  *                 from_user: {username, first_name, last_name, phone}}, ...]}
  *
  **/
+router.get("/:username/to", async (req, res, next) => {
+    try {
+
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
 /** GET /:username/from - Get messages from a user.
@@ -47,6 +71,14 @@ const { ExpressError } = require("../expressError");
  *                 to_user: {username, first_name, last_name, phone}}, ...]}
  *
  **/
+router.get("/:username/from", async (req, res, next) => {
+    try {
+
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
 module.exports = { router };
