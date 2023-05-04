@@ -27,8 +27,20 @@ const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
  *
  * Only the currently-logged-in user can be either the 'to' or 'from' user.
  **/
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", ensureLoggedIn, async (req, res, next) => {
     try {
+        const curr_user = req.user.username;
+        const message = await Message.get(req.params.id);
+
+        const to_username = message.to_user.username;
+        const from_username = message.from_user.username;
+
+        // Throw error if current user is neither message sender nor recipient
+        if (curr_user !== to_username && curr_user !== from_username) {
+            throw new ExpressError("Unauthorized", 401);
+        }
+
+        return res.json({ message });
 
     } catch(err) {
         return next(err);
@@ -63,7 +75,7 @@ router.post("/", ensureLoggedIn, async (req, res, next) => {
  *
  * Only the intended recipient can mark as read.
  **/
-router.post("/:id/read", async (req, res, next) => {
+router.post("/:id/read", ensureLoggedIn, async (req, res, next) => {
     try {
 
     } catch(err) {
