@@ -53,11 +53,8 @@ router.post("/login", async (req, res, next) => {
 router.post("/register", async (req, res, next) => {
     try {
 
-        // Register
+        // Register and update last login time
         const user = await User.register(req.body);
-
-        // Update last login
-        await User.updateLoginTimestamp(user.username);
 
         // Create and return token
         let token = jwt.sign({ username: user.username }, SECRET_KEY);
