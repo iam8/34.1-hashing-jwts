@@ -77,6 +77,20 @@ router.post("/", ensureLoggedIn, async (req, res, next) => {
  **/
 router.post("/:id/read", ensureLoggedIn, async (req, res, next) => {
     try {
+        const id = req.params.id;
+        const curr_user = req.user.username;
+
+        // Get the message recipient
+        const message = await Message.get(id);
+        const to_username = message.to_user.username;
+
+        // Throw error if current user is not the recipient
+        if (curr_user !== to_username) {
+            throw new ExpressError("Unauthorized", 401);
+        }
+
+        const markResult = await Message.markRead(id);
+        return res.json({message: markResult});
 
     } catch(err) {
         return next(err);
