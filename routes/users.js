@@ -13,21 +13,21 @@ const { client: db } = require("../db");
 const { ExpressError } = require("../expressError");
 
 
-/** GET / - get list of users.
+/** GET / - Get list of users.
  *
  * => {users: [{username, first_name, last_name, phone}, ...]}
  *
  **/
 
 
-/** GET /:username - get detail of users.
+/** GET /:username - Get details of a user.
  *
  * => {user: {username, first_name, last_name, phone, join_at, last_login_at}}
  *
  **/
 
 
-/** GET /:username/to - get messages to user
+/** GET /:username/to - Get messages to a user.
  *
  * => {messages: [{id,
  *                 body,
@@ -38,7 +38,7 @@ const { ExpressError } = require("../expressError");
  **/
 
 
-/** GET /:username/from - get messages from user
+/** GET /:username/from - Get messages from a user.
  *
  * => {messages: [{id,
  *                 body,
@@ -47,5 +47,6 @@ const { ExpressError } = require("../expressError");
  *                 to_user: {username, first_name, last_name, phone}}, ...]}
  *
  **/
+
 
 module.exports = { router };
