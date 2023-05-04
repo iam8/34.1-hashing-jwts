@@ -11,6 +11,7 @@ const router = express.Router();
 
 const { client: db } = require("../db");
 const { ExpressError } = require("../expressError");
+const { User } = require("../models/user");
 
 
 /** GET / - Get list of users.
@@ -20,7 +21,8 @@ const { ExpressError } = require("../expressError");
  **/
 router.get("/", async (req, res, next) => {
     try {
-
+        const users = await User.all();
+        return res.json({ users });
 
     } catch(err) {
         return next(err);
