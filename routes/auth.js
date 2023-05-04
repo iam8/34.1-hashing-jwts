@@ -16,9 +16,9 @@ const { ExpressError } = require("../expressError");
 const { User } = require("../models/user");
 
 
-/** POST /login - login: {username, password} => {token}
+/** POST /login - log in.
  *
- * Also, update user's last login timestamp.
+ * {username, password} => {token}.
  *
  **/
 router.post("/login", async (req, res, next) => {
@@ -44,11 +44,10 @@ router.post("/login", async (req, res, next) => {
 })
 
 
-/** POST /register - register user: registers, logs in, and returns token.
+/** POST /register - register user: register, log in, and return token.
  *
  * {username, password, first_name, last_name, phone} => {token}.
  *
- *  Also, update user's last login timestamp.
  */
 router.post("/register", async (req, res, next) => {
     try {
