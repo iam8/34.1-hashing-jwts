@@ -48,8 +48,25 @@ router.post("/login", async (req, res, next) => {
  *
  * {username, password, first_name, last_name, phone} => {token}.
  *
- *  Make sure to update their last-login!
+ *  Also, update user's last login timestamp.
  */
+router.post("/register", async (req, res, next) => {
+    try {
+
+        // Register
+        const user = await User.register(req.body);
+
+        // Update last login
+        await User.updateLoginTimestamp(user.username);
+
+        // Create and return token
+        let token = jwt.sign({ username: user.username }, SECRET_KEY);
+        return res.json({ token });
+
+    } catch(err) {
+        return next(err);
+    }
+})
 
 
 module.exports = { router };
