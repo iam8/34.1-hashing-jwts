@@ -10,7 +10,6 @@ const express = require("express");
 const router = express.Router();
 
 const { client: db } = require("../db");
-const { ExpressError } = require("../expressError");
 const { User } = require("../models/user");
 const { ensureCorrectUser } = require("../middleware/auth");
 
@@ -33,6 +32,8 @@ router.get("/", async (req, res, next) => {
 /** GET /:username - Get details of a user.
  *
  * => {user: {username, first_name, last_name, phone, join_at, last_login_at}}
+ *
+ * Only the corresponding user can view this route.
  **/
 router.get("/:username", ensureCorrectUser, async (req, res, next) => {
     try {
@@ -52,6 +53,8 @@ router.get("/:username", ensureCorrectUser, async (req, res, next) => {
  *                 sent_at,
  *                 read_at,
  *                 from_user: {username, first_name, last_name, phone}}, ...]}
+ *
+ * Only the corresponding user can view this route.
  **/
 router.get("/:username/to", ensureCorrectUser, async (req, res, next) => {
     try {
@@ -71,6 +74,8 @@ router.get("/:username/to", ensureCorrectUser, async (req, res, next) => {
  *                 sent_at,
  *                 read_at,
  *                 to_user: {username, first_name, last_name, phone}}, ...]}
+ *
+ * Only the corresponding user can view this route.
  **/
 router.get("/:username/from", ensureCorrectUser, async (req, res, next) => {
     try {
