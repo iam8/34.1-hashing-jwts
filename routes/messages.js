@@ -11,6 +11,9 @@ const router = express.Router();
 
 const { client: db } = require("../db");
 const { ExpressError } = require("../expressError");
+const { User } = require("../models/user");
+const { Message } = require("../models/message");
+const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
 
 
 /** GET /:id - get detail of message.
